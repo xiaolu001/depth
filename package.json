@@ -1,11 +1,28 @@
 {
-  "name": "init",
+  "name": "depth-chart",
+  "description": "vue 深度图组件，用于数字交易所使用",
   "version": "0.1.0",
-  "private": true,
+  "keywords": [
+    "vue",
+    "depth",
+    "depth chart",
+    "orderbook",
+    "深度图"
+  ],
+  "author": {
+    "email": "136667423@qq.com",
+    "name": "luguo"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https@github.com/xiaolu001/depth.git"
+  },
+  "private": false,
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "lib": "vue-cli-service build --target lib --name depth-chart --dest lib packages/index.js"
   },
   "dependencies": {
     "core-js": "^3.6.4",
