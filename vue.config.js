@@ -17,6 +17,13 @@ module.exports = {
             .tap(options => {
 
                 return options
+            }).end().use('babel')
+            .loader('babel-loader').options({
+                presets: [
+                    ['@babel/preset-env', {
+                        modules: false
+                    }]
+                ]
             })
     }
 

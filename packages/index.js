@@ -1,5 +1,2 @@
-import depthChart from "./chart/RootChart"
-depthChart.install = function (Vue) {
-    Vue.component("depthChart", depthChart)
-}  
+import depthChart from "./chart/RootChart";
 export default depthChart
