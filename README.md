@@ -1,29 +1,26 @@
-# init
+# depth
 
-## Project setup
-```
-yarn install
-```
+## Install
 
-### Compiles and hot-reloads for development
+Install with npm:
+
 ```
-yarn run serve
+npm i depth-map-l --save-dev
 ```
 
-### Compiles and minifies for production
+Usage
+
 ```
-yarn run build
+<div id="depth"></div>
 ```
 
-### Run your tests
 ```
-yarn run test
-```
+new depth({
+    dom: document.getElementById("depth"),
+    width: 800,
+    height: 600,
+    data: data,
+    locale: "zh"
+});
 
-### Lints and fixes files
 ```
-yarn run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
