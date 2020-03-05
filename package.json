@@ -2,6 +2,7 @@
   "name": "depth-chart",
   "description": "vue 深度图组件，用于数字交易所使用",
   "version": "0.1.0",
+  "main": "lib/depth-chart.umd.min.js",
   "keywords": [
     "vue",
     "depth",
