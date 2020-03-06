@@ -22,16 +22,16 @@ class DepthMainChart extends Chart {
             price: decimal && decimal.price || 3,
             value: decimal && decimal.value || 4
         }//x轴小数位数
-
         this.interval = interval || 2//中间间隙
-        this.style = {
-            ...styeleConfing,
-            ...style
-        }
+
+
+        this.style = this.deepObjectMerge(styeleConfing, style)
+
         this.locale = locale
 
 
         this.dataProvider = new DataProvider()
+
         this.dataProvider.init(this.data, this.decimal, this.locale)
         this.mainChart = new MainChart(this.dom, this.dataProvider, this.interval, this.style)
         this.mainChart.init(this.dom)
@@ -98,6 +98,13 @@ class DepthMainChart extends Chart {
    */
     calcYAxisWidth() {
         return this.style.yAxis.width
+    }
+    deepObjectMerge(FirstOBJ, SecondOBJ) { // 深度合并对象
+        for (var key in SecondOBJ) {
+            FirstOBJ[key] = FirstOBJ[key] && FirstOBJ[key].toString() === "[object Object]" ?
+                this.deepObjectMerge(FirstOBJ[key], SecondOBJ[key]) : FirstOBJ[key] = SecondOBJ[key];
+        }
+        return FirstOBJ;
     }
 
 }

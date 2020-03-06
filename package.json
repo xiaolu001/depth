@@ -1,8 +1,8 @@
 {
-  "name": "depth-chart",
-  "description": "vue 深度图组件，用于数字交易所使用",
-  "version": "0.1.1",
-  "main": "lib/depth-chart.umd.min.js",
+  "name": "depth-map-l",
+  "description": "深度图组件，用于数字交易所使用",
+  "version": "0.0.3",
+  "main": "index.js",
   "keywords": [
     "vue",
     "depth",
@@ -11,8 +11,8 @@
     "深度图"
   ],
   "author": {
-    "email": "136667423@qq.com",
-    "name": "luguo"
+    "email": "183761416@qq.com",
+    "name": "luguo0228"
   },
   "repository": {
     "type": "git",

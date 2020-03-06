@@ -12,8 +12,8 @@ class DataProvider {
         this.length = 200;
         this.decimal = decimal
         this.locale = locale
-        this.leftData = this.dataFill(this.data['bids'], 'bids') //买
-        this.rightData = this.dataFill(this.data['asks'], 'asks') //卖
+        this.leftData = this.dataFill(this.data['bids'] || [], 'bids') //买
+        this.rightData = this.dataFill(this.data['asks'] || [], 'asks') //卖
 
     }
 
@@ -22,9 +22,9 @@ class DataProvider {
      * 
      */
     adjacent() {
-        let leftArray = this.data['bids']
+        let leftArray = this.data['bids'] || []
         let leftArrayLength = leftArray.length;
-        let rightArray = this.data['asks']
+        let rightArray = this.data['asks'] | []
         let rightArrayLength = rightArray.length;
         if (leftArrayLength < 1 || rightArrayLength < 1) {
             console.log("数据长度不够")
@@ -155,7 +155,7 @@ class DataProvider {
         return this.adjacent() * 2 + this.minPrice();
     }
     minPrice() {
-        let len = this.data['bids'].length - 1
+        let len = this.data['bids'] && this.data['bids'].length - 1 || 0
         if (len > 0) {
             return parseFloat(this.data['bids'][len].price)
         }
