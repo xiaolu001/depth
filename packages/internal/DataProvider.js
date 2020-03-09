@@ -7,14 +7,12 @@ class DataProvider {
         this.rightData = []
     }
     init(data, decimal, locale) {
-
         this.data = data
         this.length = 200;
         this.decimal = decimal
         this.locale = locale
         this.leftData = this.dataFill(this.data['bids'] || [], 'bids') //买
         this.rightData = this.dataFill(this.data['asks'] || [], 'asks') //卖
-
     }
 
     /**
@@ -24,14 +22,25 @@ class DataProvider {
     adjacent() {
         let leftArray = this.data['bids'] || []
         let leftArrayLength = leftArray.length;
-        let rightArray = this.data['asks'] | []
+        let rightArray = this.data['asks'] || []
         let rightArrayLength = rightArray.length;
         if (leftArrayLength < 1 || rightArrayLength < 1) {
             console.log("数据长度不够")
             return false
         }
-        const vol1 = Math.abs(parseFloat(leftArray[0].price) - parseFloat(leftArray[leftArrayLength - 1].price))
-        const vol2 = Math.abs(parseFloat(rightArray[0].price) - parseFloat(rightArray[rightArrayLength - 1].price))
+        //  debugger
+        let vol1 = 0, vol2 = 0;
+        if (leftArrayLength > 1) {
+            vol1 = Math.abs(parseFloat(leftArray[0].price) - parseFloat(leftArray[leftArrayLength - 1].price))
+        } else {
+            vol1 = parseFloat(leftArray[0].price)
+        }
+        if (rightArrayLength > 1) {
+            vol2 = Math.abs(parseFloat(rightArray[0].price) - parseFloat(rightArray[rightArrayLength - 1].price))
+        } else {
+            vol2 = parseFloat(rightArray[0].price)
+        }
+
         const min = Math.min(vol1, vol2);
         return min
     }
@@ -158,6 +167,8 @@ class DataProvider {
         let len = this.data['bids'] && this.data['bids'].length - 1 || 0
         if (len > 0) {
             return parseFloat(this.data['bids'][len].price)
+        } else {
+            return parseFloat(this.data['bids'][0].price)
         }
     }
     maxVol() {

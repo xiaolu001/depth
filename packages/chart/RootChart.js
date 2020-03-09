@@ -23,19 +23,12 @@ class DepthMainChart extends Chart {
             value: decimal && decimal.value || 4
         }//x轴小数位数
         this.interval = interval || 2//中间间隙
-
-
         this.style = this.deepObjectMerge(styeleConfing, style)
-
         this.locale = locale
-
-
         this.dataProvider = new DataProvider()
-
         this.dataProvider.init(this.data, this.decimal, this.locale)
         this.mainChart = new MainChart(this.dom, this.dataProvider, this.interval, this.style)
         this.mainChart.init(this.dom)
-
         this.maskChart = new MaskChart(this.dom, this.dataProvider, this.interval, this.style)
         this.maskChart.init(this.dom)
         this.calcChartDimensions()
