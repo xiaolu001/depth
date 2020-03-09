@@ -24,3 +24,12 @@ new depth({
 });
 
 ```
+## Api
+```
+width 图片宽度
+height 图片高度
+data 数据源 
+locale 语言
+decimal { price (x轴小数位)  value （y轴小数位）}
+interval 中间间隙
+```
