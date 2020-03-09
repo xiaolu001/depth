@@ -6,7 +6,7 @@
 
 <script>
 import depth from "../packages/index";
-import data from "./mock.json"
+import data from "./mock.json";
 export default {
   name: "App",
   data() {
@@ -29,6 +29,6 @@ export default {
 <style>
 #app {
   width: 800px;
-  margin:80px auto;
+  margin: 80px auto;
 }
 </style>

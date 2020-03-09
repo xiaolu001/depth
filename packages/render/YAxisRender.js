@@ -53,7 +53,7 @@ class XAxisRender extends AxisRender {
                 endX = startX - tickLineLength//刻度外置
             }
         }
-       
+
         const height = this.viewPortHandler.contentBottom();
         const maxVol = this.dataProvider.maxVol()
         const divide = (height / 16) * 3
@@ -82,7 +82,7 @@ class XAxisRender extends AxisRender {
             let val = (value / 1000000).toString()
             return `${this.decimal(val)}M`
         }
-        return value
+        return this.decimal(value.toString())
     }
     decimal(val) {
         if (val.indexOf('.') > -1) {
