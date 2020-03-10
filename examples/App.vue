@@ -11,7 +11,9 @@ export default {
   name: "App",
   data() {
     return {
-      depth: null
+      depth: null,
+      throttle:'',
+      onResize:''
     };
   },
   mounted() {
@@ -22,7 +24,26 @@ export default {
       data: data,
       locale: "zh"
     });
-  }
+    this.throttle = (func, wait) => {
+      let previous = 0;
+      return () => {
+        const now = Date.now();
+        if (now - previous > wait) {
+          func();
+          previous = now;
+        }
+      };
+    };
+    this.onResize = this.throttle(() => {
+      if (this.depth) {
+        this.depth.updata(data);
+      }
+    }, 1000 / 16);
+    window.addEventListener("resize", this.onResize, false);
+  },
+  // methods: {
+  //   onResize() {}
+  // }
 };
 </script>
 
