@@ -25,6 +25,8 @@ class DepthMainChart extends Chart {
         this.interval = interval || 2//中间间隙
         this.style = this.deepObjectMerge(styeleConfing, style)
         this.locale = locale
+        this.throttle = null
+        this.onResize = null
         this.dataProvider = new DataProvider()
         this.dataProvider.init(this.data, this.decimal, this.locale)
         this.mainChart = new MainChart(this.dom, this.dataProvider, this.interval, this.style)
@@ -47,13 +49,32 @@ class DepthMainChart extends Chart {
         domNode.addEventListener('mouseleave', (e) => {
             mouseEvent.mouseLeave(e)
         })
-
+        this.throttle = (func, wait) => {
+            let previous = 0;
+            return () => {
+                const now = Date.now();
+                if (now - previous > wait) {
+                    func();
+                    previous = now;
+                }
+            };
+        };
+        this.onResize = this.throttle(() => {
+            if (this) {
+                this.updata(this.data);
+            }
+        }, 1000 / 16);
+        window.addEventListener("resize", this.onResize, false);
     }
     /**
       * 修改数据源
     */
-    updata(data) {
+    updata(data, decimal) {
+
         this.data = data
+        if (decimal) {
+            this.decimal = decimal;
+        }
         this.dataProvider.init(data, this.decimal, this.locale)
         this.mainChart.flush()
     }
