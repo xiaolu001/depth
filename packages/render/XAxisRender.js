@@ -30,17 +30,17 @@ class XAxisRender extends AxisRender {
         ctx.fillStyle = xAxis.tickLine.color;
         const startY = this.viewPortHandler.contentBottom()
         const endY = startY + 5
-        const startX = (this.viewPortHandler.contentRight() / 30)
+        const startX = (this.viewPortHandler.contentRight() / 16)
         
          let yAxisWidth = 0
         // if (yAxis.position === "left") {
         //     yAxisWidth += yAxis.width
         // }
-        const divide = startX * 4
+        const divide = startX * 2
         const difference = this.dataProvider.adjacent() * 2;  //this.dataProvider.maxPrice() - this.dataProvider.minPrice();
 
-        const startVol = difference / 30
-        const divideVol = startVol * 4
+        const startVol = difference / 16
+        const divideVol = startVol * 2
         const decimal = this.dataProvider.getPriceDecimal()
         for (let i = 0; i < 8; i++) {
             const x = yAxisWidth + startX + i * divide;

@@ -123,7 +123,7 @@ class DataProvider {
                 t: total
             }
             array.forEach(element => {
-                if (Math.abs(obj.p - element.price) < difference) {
+                if (Math.abs(obj.p - element.price) < difference / 2) {
                     total = total + element.volume;
                     obj.v = element.volume
                     obj.t = total;
@@ -168,7 +168,7 @@ class DataProvider {
         if (len > 0) {
             return parseFloat(this.data['bids'][len].price)
         } else {
-            return parseFloat(this.data['bids'][0].price)
+            return 0
         }
     }
     maxVol() {

@@ -21,7 +21,7 @@ export default {
       dom: document.getElementById("depth"),
       width: 800,
       height: 600,
-      data: data,
+      data: [],
       locale: "zh"
     });
     this.throttle = (func, wait) => {

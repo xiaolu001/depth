@@ -75,10 +75,10 @@ class XAxisRender extends AxisRender {
      * @param value
      */
     renderTickLinesValue(value) {
-        if (value > 1000) {
-            let val = (value / 10000).toString()
+        if (value > 1000 && value < 1000000) {
+            let val = (value / 1000).toString()
             return `${this.decimal(val)}K`
-        } else if (value > 1000000) {
+        } else if (value >= 1000000) {
             let val = (value / 1000000).toString()
             return `${this.decimal(val)}M`
         }
