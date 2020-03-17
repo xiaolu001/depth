@@ -85,7 +85,7 @@ class DataProvider {
                 if (key === 'asks' && (parseFloat(element.price) < this.middle || parseFloat(element.price) > maxPrice)) {
                     return
                 }
-                if (Math.abs(item.p - element.price) < difference) {
+                if (Math.abs(item.p - element.price) <= difference / 2) {
                     total = total + parseFloat(element.volume)
                     item.v = parseFloat(element.volume)
 
@@ -94,6 +94,7 @@ class DataProvider {
             })
 
         }
+        console.log(total)
         return arr;
     }
 
@@ -117,9 +118,18 @@ class DataProvider {
     }
     maxVol() {
         let leftLen = this.leftData.length - 1;
-        let rightLent = this.rightData.length - 1
-        let max = Math.max(parseFloat(this.leftData[leftLen].t), parseFloat(this.rightData[rightLent].t))
-        return max + max / 8
+        let rightLent = this.rightData.length - 1;
+        let max = '';
+        if (leftLen === -1) {
+            max = rightLent > 0 && parseFloat(this.rightData[rightLent].t);
+            return max + max / 8;
+        }
+        if (rightLent === -1) {
+            max = leftLen > 0 && parseFloat(this.leftData[leftLen].t);
+            return max + max / 8;
+        }
+        max = Math.max(parseFloat(this.leftData[leftLen].t), parseFloat(this.rightData[rightLent].t));
+        return max + max / 8;
 
     }
 
