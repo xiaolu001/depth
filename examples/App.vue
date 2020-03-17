@@ -12,8 +12,8 @@ export default {
   data() {
     return {
       depth: null,
-      throttle:'',
-      onResize:''
+      throttle: "",
+      onResize: ""
     };
   },
   mounted() {
@@ -21,7 +21,7 @@ export default {
       dom: document.getElementById("depth"),
       width: 800,
       height: 600,
-      data: [],
+      data: data,
       locale: "zh"
     });
     this.throttle = (func, wait) => {
@@ -40,7 +40,7 @@ export default {
       }
     }, 1000 / 16);
     window.addEventListener("resize", this.onResize, false);
-  },
+  }
   // methods: {
   //   onResize() {}
   // }
