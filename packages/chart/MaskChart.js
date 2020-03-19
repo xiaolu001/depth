@@ -5,16 +5,16 @@ class MaskChart extends Chart {
         super(dom)
         this.interval = interval;
         this.dataProvider = dataProvider;
-        this.maskRender = new MaskRender(this.viewPortHandler,dataProvider, interval);
-        
+        this.maskRender = new MaskRender(this.viewPortHandler, dataProvider, interval);
+
 
         this.style = style;
-       
+
     }
-   
+
     draw(offsetX) {
         this.maxVol = this.dataProvider.maxVol()
-      
+
         let width = this.viewPortHandler.contentRight();
         let height = this.viewPortHandler.contentBottom()
         let halfWidth = width / 2;
@@ -40,9 +40,9 @@ class MaskChart extends Chart {
             index = 199 - index;
         }
         let item = data[index];
-       
+
         if (item) {
-            let offsetY = height - item.t / this.maxVol * height
+            let offsetY = height - item.volume / this.maxVol * height
             this.maskRender.point(this.ctx, offsetX, offsetY, selectColor)
             this.maskRender.popup(this.ctx, offsetX, offsetY, selectColor, direction, item)
             this.maskRender.labelText(this.ctx, offsetX, offsetY, selectColor, direction, item)

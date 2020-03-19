@@ -67,7 +67,7 @@ class MaskRender extends Render {
         ctx.font = '14px bold'
         ctx.fillStyle = "#fff";
         ctx.globalAlpha = 1
-        ctx.fillText(`${item.p.toFixed(this.priceDecimal)}`, newOffsetX, offsetY - 90);
+        ctx.fillText(`${parseFloat(item.price).toFixed(this.priceDecimal)}`, newOffsetX, offsetY - 90);
         ctx.closePath()
 
         ctx.beginPath()
@@ -82,7 +82,7 @@ class MaskRender extends Render {
         ctx.font = '14px bold'
         ctx.fillStyle = "#fff";
         ctx.globalAlpha = 1
-        ctx.fillText(`${parseFloat(item.t).toFixed(this.valueDecimal)}`, newOffsetX, offsetY - 45);
+        ctx.fillText(`${parseFloat(item.volume).toFixed(this.valueDecimal)}`, newOffsetX, offsetY - 45);
         ctx.closePath()
     }
 }

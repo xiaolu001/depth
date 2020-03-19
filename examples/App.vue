@@ -7,6 +7,7 @@
 <script>
 import depth from "../packages/index";
 import data from "./mock.json";
+import { subscribe, unsubscribe } from "./socket";
 export default {
   name: "App",
   data() {
@@ -17,13 +18,8 @@ export default {
     };
   },
   mounted() {
-    this.depth = new depth({
-      dom: document.getElementById("depth"),
-      width: 800,
-      height: 600,
-      data: data,
-      locale: "zh"
-    });
+    subscribe("depth_v2", "btc_usdt", this.messaging);
+
     this.throttle = (func, wait) => {
       let previous = 0;
       return () => {
@@ -40,10 +36,26 @@ export default {
       }
     }, 1000 / 16);
     window.addEventListener("resize", this.onResize, false);
+  },
+  methods: {
+    messaging(data) {
+      if (this.depth == null) {
+       
+        this.init(data.data);
+          console.log('买',Object.freeze(data.data.bids));
+        console.log('卖',Object.freeze(data.data.asks));
+      }
+    },
+    init(data) {
+      this.depth = new depth({
+        dom: document.getElementById("depth"),
+        width: 800,
+        height: 600,
+        data: data,
+        locale: "zh"
+      });
+    }
   }
-  // methods: {
-  //   onResize() {}
-  // }
 };
 </script>
 

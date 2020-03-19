@@ -24,7 +24,7 @@ class MainRender extends Render {
         ctx.moveTo(width, height)
         leftData.forEach((item, index) => {
             x = width - parseInt(index) * dataWidth
-            y = height - item.t / max * height
+            y = height - item.volume / max * height
             ctx.lineTo(x, y)
         })
         ctx.fillStyle = depth.buyColor
@@ -45,7 +45,7 @@ class MainRender extends Render {
         ctx.moveTo(width + this.interval, height)
         rightData.forEach((item, index) => {
             x = width + this.interval + parseInt(index) * dataWidth + 1
-            y = height - item.t / max * height
+            y = height - item.volume / max * height
             ctx.lineTo(x, y)
         })
         ctx.fillStyle = depth.sellColor

@@ -8,13 +8,14 @@ class DataProvider {
     }
     init(data, decimal, locale) {
         this.data = data;
-        this.middle = this.middlePrice();
+
         this.length = 200;
         this.decimal = decimal
         this.locale = locale
-        this.leftData = this.dataFill(this.data['bids'] || [], 'bids') //买
-        this.rightData = this.dataFill(this.data['asks'] || [], 'asks') //卖
-
+        this.leftData = this.data['bids'].reverse(); //this.dataFill(this.data['bids'] || [], 'bids') //买
+        this.rightData = this.data['asks'] //this.dataFill(this.data['asks'] || [], 'asks') //卖
+        this.middle = this.middlePrice();
+        
     }
 
     /**
@@ -43,74 +44,21 @@ class DataProvider {
     getLocale() {
         return this.locale
     }
-    initData(key) {
-        let arr = []
-        let minPrice = this.minPrice();
-
-        let semiaxis = this.adjacent()
-        let difference = semiaxis / this.length
-        let len = this.length
-        let total = 0
-        if (key == 'asks') {
-            minPrice = minPrice + semiaxis;
-        }
-        for (let i = 0; i < len; i++) {
-            let obj = {
-                p: minPrice + difference * i,
-                v: 0,
-                t: total
-            }
-            arr.push(obj)
-        }
-        if (key == 'asks') {
-            return arr
-        }
-        return arr.reverse()
-    }
-    dataFill(array, key) {
-        let arr = this.initData(key)
-        let len = this.length
-        let semiaxis = this.adjacent()
-        let difference = semiaxis / this.length
-        let total = 0
-        let minPrice = this.minPrice()
-        let maxPrice = this.maxPrice()
-        for (let i = 0; i < len; i++) {
-            let item = arr[i]
-            array.forEach(element => {
-                // console.log(element)
-                if (key === 'bids' && (parseFloat(element.price) > this.middle || parseFloat(element.price) < minPrice)) {
-                    return
-                }
-                if (key === 'asks' && (parseFloat(element.price) < this.middle || parseFloat(element.price) > maxPrice)) {
-                    return
-                }
-                if (Math.abs(item.p - element.price) <= difference / 2) {
-                    total = total + parseFloat(element.volume)
-                    item.v = parseFloat(element.volume)
-
-                }
-                item.t = total.toFixed(8);
-            })
-
-        }
-        console.log(total)
-        return arr;
-    }
+    
 
 
     maxPrice() {
-        let middle = this.middle
-        return middle * 1.1;
+        console.log('max', this.rightData[this.rightData.length - 1].price)
+        return parseFloat(this.rightData[this.rightData.length - 1].price);
     }
     minPrice() {
-        let middle = this.middle
-        return middle * 0.9;
+
+        return parseFloat(this.leftData[this.leftData.length - 1].price);
     }
     middlePrice() {
-        if (this.data['bids'].length > 0 && this.data['asks'].length > 0) {
-            let middle = (parseFloat(this.data['bids'][0].price) + parseFloat(this.data['asks'][0].price)) / 2
-            console.log(middle)
+        if (this.maxPrice() > 0 && this.minPrice() > 0) {
+            let middle = (this.maxPrice() + this.minPrice()) / 2
+            console.log('middle', middle)
             return middle;
         }
         return 0;
@@ -121,14 +69,14 @@ class DataProvider {
         let rightLent = this.rightData.length - 1;
         let max = '';
         if (leftLen === -1) {
-            max = rightLent > 0 && parseFloat(this.rightData[rightLent].t);
+            max = rightLent > 0 && parseFloat(this.rightData[rightLent].volume);
             return max + max / 8;
         }
         if (rightLent === -1) {
-            max = leftLen > 0 && parseFloat(this.leftData[leftLen].t);
+            max = leftLen > 0 && parseFloat(this.leftData[leftLen].volume);
             return max + max / 8;
         }
-        max = Math.max(parseFloat(this.leftData[leftLen].t), parseFloat(this.rightData[rightLent].t));
+        max = Math.max(parseFloat(this.leftData[leftLen].volume), parseFloat(this.rightData[rightLent].volume));
         return max + max / 8;
 
     }
